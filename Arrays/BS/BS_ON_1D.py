@@ -83,14 +83,69 @@ def lower_bound_recursive(arr:list,key:int,low,high):
 
         return lower_bound_recursive(arr,key,low,mid-1)
     
-# print(lower_bound_recursive(arr,7,0,len(arr)-1))
+print(lower_bound_recursive(arr,7,0,len(arr)-1))
 
-def upper_bound_recursive(arr:list,key:int,low,high):
-    if low > high:
-        return low
-    mid = (low+high)//2
-    if arr[mid] <= key:
-        return upper_bound_recursive(arr,key,mid+1,high)
+# def upper_bound_recursive(arr:list,key:int,low,high):
+#     if low > high:
+#         return low
+#     mid = (low+high)//2
+#     if arr[mid] <= key:
+#         return upper_bound_recursive(arr,key,mid+1,high)
+#     else:
+#         return upper_bound_recursive(arr,key,low,mid-1)
+# print(upper_bound_recursive(arr,7,0,len(arr)-1))
+
+
+arr_4 = [ 2,3,5,7,19,20]
+
+def lower_bound_problem(arr:list,key:int , low ,high):
+    if not arr:
+        return None
+    ans = -1
+    while low <= high:
+        mid = (low+high)//2
+        if arr[mid]<key:
+            low = mid + 1
+        elif arr[mid] >= key:
+            high = mid - 1
+            ans = mid
+        else :
+           ans = mid
+    return ans 
+print(lower_bound_problem(arr_4,7,0,len(arr_4)-1))
+
+def upper_bound_problem(arr:list,key:int,low,high):
+    if not arr:
+        return None
+    ans = -1
+    while low <= high :
+        mid = (low + high)//2
+        if arr[mid] <= key:
+            low = mid+1
+        else:
+            high = mid -1
+            ans = mid 
+    return ans
+
+print(upper_bound_problem(arr_4,7,0,len(arr_4)-1))
+
+def lower_bound_rec(arr:list,key:int,low,high)->int:
+    if low > high :
+        return low 
+    mid = (low + high)//2
+    if arr[mid]< key:
+        return lower_bound_rec(arr,key,mid+1,high)
     else:
-        return upper_bound_recursive(arr,key,low,mid-1)
-print(upper_bound_recursive(arr,7,0,len(arr)-1))
+        return lower_bound_rec(arr,key,low,high-1)
+print(lower_bound_rec(arr_4,7,0,len(arr_4)-1))
+
+
+def upper_bound_rec(arr,key,low,high):
+    if low > high :
+        return low
+    mid = (low + high )//2
+    if arr[mid] <= key:
+        return upper_bound_rec(arr,key,mid+1,high)
+    else:
+        return upper_bound_rec(arr,key,low,mid-1)
+print(upper_bound_rec(arr_4,7,0,len(arr_4)-1))
